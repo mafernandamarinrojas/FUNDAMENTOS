@@ -11,7 +11,7 @@ int main()
     cin>>p2;
     cout<<"Ingresar la nota del tercer parcial: ";
     cin>>p3;
-    cout<<"Ingresar la nota del examen parcial: ";
+    cout<<"Ingresar la nota del examen final: ";
     cin>>examenfinal;
     cout<<"Ingresar la nota del proyecto: ";
     cin>>proyecto;
