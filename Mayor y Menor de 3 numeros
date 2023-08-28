@@ -1,0 +1,60 @@
+/* Un programa que permita ingresar 3 numeros por teclado y determine cual es el menor y cual es el mayor */
+
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    int n1, n2, n3;//variables de entrada
+    int menor, mayor;//variable de salida
+    cout<<"*****PROGRAMA QUE DETERMINA EL MENOR Y MAYOR DE TRES NUMEROS*****"<<endl<<endl;
+    cout<<"Ingrese los 3 valores a operar: "<<endl;
+    cin>>n1;//cin>>n1>>n2>>n3
+    cin>>n2;
+    cin>>n3;
+    if(n1<=n2 && n1<=n3 && n2<=n3)
+    {
+        menor=n1;
+        mayor=n3;
+    }
+    else
+    {
+        if(n2<=n1 && n2<=n3 && n1<=n3)
+        {
+            menor=n2;
+            mayor=n3;
+        }
+        else
+        {
+            if(n3<=n1 && n3<=n2 && n1<=n2)
+            {
+            menor=n3;
+            mayor=n2;
+            }
+            else
+            {
+                if(n1<=n2 && n1<=n3 && n3<=n2)
+                menor=n1;
+                mayor=n2;
+            }
+            if(n3<=n1 && n3<=n2 && n2<=n1)
+            {
+                menor=n3;
+                mayor=n1;
+            }
+            else
+            {
+                if(n2<=n1 && n2<=n3 && n3<=n1)
+                {
+                    menor=n2;
+                    mayor=n1;
+                }
+            }
+            
+        }
+    }
+    cout<<"Se ingreso los siguientes valores: "<<n1<<"---"<<n2<<"---"<<n3<<endl;
+    cout<<"El menor de los numeros ingresados es: "<<menor<<endl;
+    cout<<"El mayor de los numeros ingresados es: "<<mayor<<endl;
+}
