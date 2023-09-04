@@ -1,0 +1,28 @@
+Algoritmo Funcion_cuadratica
+	Escribir "Ingrese a= "
+	Leer a
+	Escribir "Ingrese b= "
+	Leer b
+	Escribir "Ingrese c= "
+	Leer c
+	D <- b*b-4*a*c
+	Si D=0 Entonces
+		x <- -b/(2*a)
+		Escribir "La raiz: "
+		Escribir "x= ", x
+	SiNo
+		Si D>0 Entonces
+			x1 <- (-b+(D^(1/2)))/(2*a)
+			x2 <- (-b-(D^(1/2)))/(2*a)
+			Escribir "Dos raices reales: "
+			Escribir "x1= ", x1
+			Escribir "x2= ",x2
+		SiNo
+			xr <- -b/(2*a)
+			xi <- ((-D)^(1/2))/(2*a)
+			Escribir "Dos raices imaginarias son: "
+			Escribir "x1= ",xr," + ",xi,"i"
+			Escribir "x2= ",xr," + ",xi,"i"
+		FinSi
+	FinSi
+FinAlgoritmo
