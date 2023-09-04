@@ -1,0 +1,45 @@
+#include <iostream>
+#include "math.h"
+
+using namespace std;
+
+int main()
+{
+    float a, b, c;
+    double x, x1, x2, xr, xi, D;
+    cout<<"Ingrese el valor de a = "; 
+    cin>>a;
+    if(a==0)
+    {
+        cout<<"ERROR";
+    }
+    cout<<"Ingrese el valor de b = "; 
+    cin>>b;
+    cout<<"Ingrese el valor de c = "; 
+    cin>>c;
+    D= pow(b,2) - (4*a*c);
+    if(D==0)
+    {
+        x= -b/(2*a);
+        cout<<"La raiz es: "<<endl;
+        cout<<"x = "<<x;
+    }
+    else 
+        if(D>0)
+        {
+            x1 = (-b+sqrt(D))/(2*a);
+            x2 = (-b-sqrt(D))/(2*a);
+		    cout<< "Las dos raices reales son: "<<endl;
+		    cout<<"x1= "<<x1<<endl;
+		    cout<< "x2= "<<x2;
+        }
+		else
+		{
+		     xr= -b/(2*a);
+			 xi = sqrt(-D)/(2*a);
+			 cout<<"Las dos raices imaginarias son: "<<endl;
+			 cout<<"x1 = "<<xr<<" + "<<xi<<"i"<<endl;
+			 cout<<"x2 = "<<xr<<" - "<<xi<<"i";
+		}
+    return 0;
+}
