@@ -35,24 +35,28 @@ int main()
             else
             {
                 if(n1<=n2 && n1<=n3 && n3<=n2)
+                {
                 menor=n1;
                 mayor=n2;
-            }
-            if(n3<=n1 && n3<=n2 && n2<=n1)
-            {
-                menor=n3;
-                mayor=n1;
-            }
-            else
-            {
-                if(n2<=n1 && n2<=n3 && n3<=n1)
-                {
-                    menor=n2;
-                    mayor=n1;
                 }
-            }
-            
-        }
+                 else
+                 {
+                    if(n3<=n1 && n3<=n2 && n2<=n1)
+                    {
+                    menor=n3;
+                    mayor=n1;
+                    }
+                   else
+                   {
+                     if(n2<=n1 && n2<=n3 && n3<=n1)
+                     {
+                     menor=n2;
+                     mayor=n1;
+                     }
+                   }        
+                 }
+              }
+           }
     }
     cout<<"Se ingreso los siguientes valores: "<<n1<<"---"<<n2<<"---"<<n3<<endl;
     cout<<"El menor de los numeros ingresados es: "<<menor<<endl;
