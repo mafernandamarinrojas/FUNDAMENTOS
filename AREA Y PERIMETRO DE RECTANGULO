@@ -1,0 +1,18 @@
+
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    float base, altura, perimetro, area;
+    cout<<"Ingrese el valor de la base: "; 
+    cin>>base;
+    cout<<"Ingrese el valor de altura: "; 
+    cin>>altura;
+    perimetro=2*base+2*altura;
+    area=base*altura / 2;
+    cout<<"El perimetro es: "<<perimetro;
+    cout<<"El area es: "<<area;
+    return 0;
+}
