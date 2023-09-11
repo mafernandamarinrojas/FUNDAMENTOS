@@ -1,0 +1,27 @@
+// EJERCICIO A.cpp : Este archivo contiene la función "main". La ejecución del programa comienza y termina ahí.
+//
+
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+	int N, M, c, menor, mayor;
+	float promedio, suma;
+	cout << "Ingrese el valor N: ";
+	cin >> N;
+	cout << "Ingrese el valor de M: ";
+	cin >> M;
+    c = N;
+    suma = 0;
+    while (c <= M)
+    {
+        suma = suma + c;
+        c = c + 1;
+    }
+    cout << "La suma es: " << suma<<endl;
+    promedio = suma / (M - N + 1);
+    cout << "El promedio es: " << promedio;
+    return 0;
+}
