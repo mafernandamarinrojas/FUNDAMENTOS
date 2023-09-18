@@ -1,0 +1,30 @@
+// SERIE FOR EXPONENCIAL.cpp : Este archivo contiene la función "main". La ejecución del programa comienza y termina ahí.
+//6.	Calcular la siguiente serie, donde X es un número real. S = x ^ 1 + x ^ 2 + x ^ 3 + ⋯………… + x ^ n//
+
+//AUTOR = MARIA FERNANDA MARIN ROJAS
+
+#include <iostream>
+#include "math.h"
+
+using namespace std;
+
+int main()
+{
+    int n;
+    float X, potencia, S = 0;
+    cout << "Ingrese el valor de X = ";
+    cin >> X;
+    do 
+    {
+        cout << "Ingrese el ultimo valor del exponente de n = ";
+        cin >> n;
+    } while (n <= 0);
+    // un ciclo for
+    for (int i = 1; i <= n; i++) //inicializacion, condicion, incremento
+    {
+        potencia = pow(X, i);
+        cout << potencia << " + ";
+        S = S + potencia;
+    }
+    cout << endl << "La sumatoria es: " << S << endl;
+}
