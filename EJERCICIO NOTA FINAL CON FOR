@@ -1,0 +1,40 @@
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    int N;
+    float p1,p2,p3,ef,pf,promedio, sumanotas, notafinal;
+    cout<<"Ingrese la cantidad de alumnos que desea conocer la nota: ";
+    cin>>N;
+    sumanotas=0;
+    for(int i=1;i<=N;i++)
+    {
+        do
+        {
+            cout<<"Ingrese la nota primer parcial: "; cin>>p1;
+        }while (p1<=0);
+        do
+        {
+            cout<<"Ingrese la nota segundo parcial: "; cin>>p2;
+        }while (p2<=0);
+        do
+        {
+            cout<<"Ingrese la nota tercer parcial: "; cin>>p3;
+        }while (p3<=0);
+        do
+        {
+            cout<<"Ingrese la nota examen final: "; cin>>ef;
+        }while (ef<=0);
+        do
+        {
+            cout<<"Ingrese la nota proyecto final: "; cin>>pf;
+        }while (pf<=0);
+        promedio=((p1+p2+p3)/3)*0.4+ef*0.4+pf*0.2;
+        sumanotas=sumanotas+promedio;
+    }
+    notafinal=sumanotas/N;
+    cout<<"La nota final del curso es: "<<notafinal;
+    return 0;
+}
