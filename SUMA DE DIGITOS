@@ -1,0 +1,20 @@
+//DADO UN NUMEOR ENTERO N HACER UN PROGARAM QUE PERMITA SUMAR CADA UNdescompnoer una cidra por DIGITOSO DE LOS DIGITOS//
+
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    int n, digito, sumadigito=0;
+    cout<<"Ingrese el valor de N: ";
+    cin>>n;
+    while(n>0)
+    {
+        digito = n%10;
+        sumadigito=sumadigito+digito;
+        n=n/10; //(extrae la parte externa)//
+    }
+    cout<<"SUMA DIGITOS = "<<sumadigito<<endl;
+    return 0;
+}
