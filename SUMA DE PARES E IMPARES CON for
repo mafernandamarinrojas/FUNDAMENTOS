@@ -1,0 +1,29 @@
+//SUMA DE PARES E IMPARES//
+
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    int n, sumaimpar = 0, sumapar = 0;
+    cout<<"Ingrese el valor de N: ";
+    cin>>n;
+    for(int i=1;i<=n; i++)
+    {
+        if(i%2!=0)
+        {
+         sumaimpar=sumaimpar+i;
+         cout<<"Impar: "<<i<<" "<<endl;
+        }
+        else
+        {
+            sumapar=sumapar+i;
+            cout<<"Par: "<<i<<" "<<endl;
+        }
+    }
+    cout<<"SUMA IMPARES = "<<sumaimpar<<endl;
+    cout<<"SUMA PARES = "<<sumapar;
+
+    return 0;
+}
