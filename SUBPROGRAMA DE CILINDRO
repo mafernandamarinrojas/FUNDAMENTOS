@@ -1,0 +1,27 @@
+// SUBPROGRAMA CILINDRO.cpp : Este archivo contiene la función "main". La ejecución del programa comienza y termina ahí.
+//
+
+#include <iostream>
+#include "math.h"
+
+using namespace std;
+
+float vol_cilindro(float r, float a);
+
+int main()
+{
+    float radio, altura, volumen;
+    cout << "Ingrese el radio: "; cin >> radio;
+    cout << "Ingrese la altura: "; cin >> altura;
+    volumen = vol_cilindro(radio, altura);//llamada a la funcion
+    cout << "El volumen es: " << volumen;
+    return 0;
+}
+
+float vol_cilindro(float r, float a)
+{
+
+    double PI = 3.141616;
+    float v = PI * pow(r, 2) * a;
+    return v;
+}
