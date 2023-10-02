@@ -1,0 +1,27 @@
+// SERIE 1.cpp : Este archivo contiene la función "main". La ejecución del programa comienza y termina ahí.
+//
+
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    int num, suma, digito, x;
+    do
+    {
+        cout << "Ingrese el numero: ";
+        cin >> num;
+    } while (num <= 0);
+    x = num;//guardo el valor antes que se cambie
+    //separar en digitos y suma
+    suma = 0;
+    while(num!=0)//marca el fin de la repeticion
+    {
+        
+        digito = num % 10;
+        suma = suma + digito;
+        num = num / 10; // la variable de repeticion va a cambiarº
+    }
+    cout << "La suma de los digitos de numero "<<x<< " es: " << suma;
+}
