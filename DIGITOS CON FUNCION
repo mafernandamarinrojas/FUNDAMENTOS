@@ -1,0 +1,36 @@
+// SUBPROGRAMA DIGIOS.cpp : Este archivo contiene la función "main". La ejecución del programa comienza y termina ahí.
+//
+
+#include <iostream>
+
+using namespace std;
+
+int Digito(int numero);
+
+int main()
+{
+    int numero, x, suma=0, digito;
+    do
+    {
+        cout << "Ingrese el numero: ";
+        cin >> numero;
+    } while (numero <= 0);
+
+ x = numero;//guardo el valor antes que se cambie
+ 
+ //separar en digitos y suma
+    while (numero != 0)//marca el fin de la repeticion
+    {
+
+        digito = Digito(numero);
+        suma = suma + digito;
+        numero = numero / 10; // la variable de repeticion va a cambiarº
+    }
+    cout << "La suma de los digitos de numero " << x << " es: " << suma;
+}
+
+int Digito(int numero)
+{
+    int x = numero % 10;
+    return x;
+}
