@@ -1,0 +1,30 @@
+#include <iostream>
+
+using namespace std;
+
+int producto(int N);
+
+int main()
+{
+    int N, resultado, x;
+    do{
+        cout<<"Ingrese un numero: ";
+        cin>>N;
+        x=N;
+        if (N<=0)
+        cout<<"Ingrese un numero que sea mayor a cero"<<endl;
+    }while(N<=0);
+    resultado=producto(N);
+    cout<<"El producto de los N primeros enteros: "<<x<<" es: "<<resultado;
+    return 0;
+}
+
+int producto(int N)
+{
+    int k=1;
+    for(int i=1; i<=N; i++)
+    {
+        k=k*i;
+    }
+    return k;
+}
