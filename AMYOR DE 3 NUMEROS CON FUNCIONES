@@ -1,0 +1,37 @@
+#include <iostream>
+
+using namespace std;
+
+int mayorde(int a, int b, int c);
+
+int main()
+{
+    int numero1, numero2, numero3, mayor;
+    do
+    {
+        cout << "Ingrese el primer numero: "; cin >> numero1;
+    } while (numero1 < 0);
+    do
+    {
+        cout << "Ingrese el segundo numero: "; cin >> numero2;
+    } while (numero2 < 0);
+    do
+    {
+        cout << "Ingrese el tercer numero: "; cin >> numero3;
+    } while (numero3 < 0);
+    mayor = mayorde(numero1, numero2, numero3);
+    cout << endl;
+    cout << "El mayor de entre los tres numeros [ " << numero1 << " , " << numero2 << " , " << numero3 << " ] = " << mayor;
+}
+
+int mayorde(int a, int b, int c)
+{
+    if ((a > b) && (a > c))
+        return a;
+    if ((b > a) && (b > c))
+        return b;
+    if ((c > a) && (c > b))
+        return c;
+    if ((a == b) && (a == c))
+        return a;
+}
