@@ -14,7 +14,7 @@ void solucionimaginaria(float a, float b, float c, float &xr, float &xi);
 
 int main()
 {
-    int a, b, c, D, x1, x2, xr, xi;
+    float a, b, c, D, x1, x2, xr, xi;
     do
     {
         cout << "Ingrese el valor de a: "; cin >> a;
@@ -46,7 +46,7 @@ float solucionunica(float b, float a)
 {
     float x;
     x = -b / (2 * a);
-      return x;
+    return x;
 }
 
 float solucionreal(float a, float b, float c, float &x1, float &x2)
