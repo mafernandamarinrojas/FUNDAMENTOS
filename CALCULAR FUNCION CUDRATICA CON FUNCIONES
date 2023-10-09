@@ -1,0 +1,66 @@
+// FUNCIONES CON MAYOR DE TRES NUMEROS.cpp : Este archivo contiene la función "main". La ejecución del programa comienza y termina ahí.
+//
+
+#include <iostream>
+#include "conio.h"
+#include "math.h""
+
+using namespace std;
+//prototipo
+
+float solucionunica(float b, float a);
+void solucionreal(float a, float b, float c, float &x1, float &x2);
+void solucionimaginaria(float a, float b, float c, float &xr, float &xi);
+
+int main()
+{
+    int a, b, c, D, x1, x2, xr, xi;
+    do
+    {
+        cout << "Ingrese el valor de a: "; cin >> a;
+    } while (a == 0);
+
+    cout << "Ingrese el valor de b: "; cin >> b;
+    cout << "Ingrese el valor de c: "; cin >> c;
+    D = b * b - 4 * a * c;
+    if (D == 0)
+    {
+        cout<<"La solucion es unica: "<<solucionunica(a, b, c);
+    }
+     else if (D > 0)
+     {
+        solucionreal(a, b, c, x1, x2);
+        cout << "La solucion es x1 = " << x1 << " x2 es= " << x2;
+     }
+     else
+     {
+        solucionimaginaria(a, b, c, xr, xi);
+        cout << "La solucion real es xr = " << xr;
+        cout << "La solucion imaginaria es xi = " << xi;
+     }
+    
+}
+
+
+float solucionunica(float b, float a)
+{
+    float x;
+    x = -b / (2 * a);
+      return x;
+}
+
+float solucionreal(float a, float b, float c, float &x1, float &x2)
+{
+    float x1, x2, D;
+    D = b * b - 4 * a * c;
+    x1 = (-b + (sqrt(D)) / (2 * a));
+    x2 = (-b - (sqrt(D)) / (2 * a));
+}
+
+void solucionimaginaria(float a, float b, float c, float& xr, float& xi)
+{
+    float xr, xi, D;
+    D = b * b - 4 * a * c;
+    xr = -b / (2 * a);
+    xi = (sqrt(-D)) / (2 * a);
+}
