@@ -1,0 +1,43 @@
+// FUNCIONES CON MAYOR DE TRES NUMEROS.cpp : Este archivo contiene la función "main". La ejecución del programa comienza y termina ahí.
+//
+
+#include <iostream>
+
+using namespace std;
+//prototipo
+
+void mayorde(int a, int b, int c, int &valor);//& aspersan para usar como parametro de referencia
+
+int main()
+{
+    int numero1, numero2, numero3, valor;
+    do
+    {
+        cout << "Ingrese el primer numero: "; cin >> numero1;
+    } while (numero1 < 0);
+    do
+    {
+        cout << "Ingrese el segundo numero: "; cin >> numero2;
+    } while (numero2 < 0);
+    do
+    {
+        cout << "Ingrese el tercer numero: "; cin >> numero3;
+    } while (numero3 < 0);
+    mayorde(numero1, numero2, numero3, valor);//valor es la direccion para que acceda al valor resultado
+    cout << endl;
+    cout << "El mayor de entre los tres numeros [ " << numero1 << " , " << numero2 << " , " << numero3 << " ] = " << valor;
+}
+
+void mayorde(int a, int b, int c, int &valor)
+{
+    int mayor;
+    if ((a > b) && (a > c))
+        mayor= a;
+    if ((b > a) && (b > c))
+        mayor= b;
+    if ((c > a) && (c > b))
+        mayor= c;
+    if ((a == b) && (a == c))
+        mayor= a;
+    valor = mayor;
+}
