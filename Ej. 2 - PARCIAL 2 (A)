@@ -1,0 +1,31 @@
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+    float monto, monto_total =0;
+    int opc;
+    do {
+        
+        cout << "******** MENU ********" << endl;
+        cout << "1. APUESTA CREADA CON EXITO CABALLO 1" << endl; 
+        cout << "0. SALIR" << endl;
+        cout << "Ingrese un opcion: ";
+        cin >> opc;
+        if (opc == 1)
+        {
+            cout << "Ingrese el monto de la apuesta: ";
+            cin >> monto;
+        }
+        switch (opc)
+        {
+        case 1: monto_total = monto_total + monto;
+            break;
+        default:
+            cout << "SALIENDO"<<endl;
+        }
+    } while (opc != 0);
+    cout << "El monto totoal de las apuestas es: " << monto_total;
+    return 0;
+}
