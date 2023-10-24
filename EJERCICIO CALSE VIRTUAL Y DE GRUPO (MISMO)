@@ -1,0 +1,53 @@
+//Sacar promedio de los valores de un vector//
+
+#include <iostream>
+#define MAX 100
+
+using namespace std;
+
+void cargar(double a[], int tamano);
+void mostrar(double a[], int tamano);
+double Promedio(double a[], int tamano);
+
+int main() {
+	int n;
+	double vec[MAX];
+	
+	//validar entrada
+	do {
+		cout << "Ingresar el tamano del vector:";
+		cin >> n;
+	} while ((n <= 0) || (n > MAX));
+	cargar(vec, n); // Cargar el vector
+	cout<<"El promedio de los elementos del vector es: "<< Promedio(vec, n) << endl;
+    mostrar(vec, n);
+    return 0;
+}
+
+void cargar(double a[], int tamano)
+{
+	for (int i = 0; i < tamano; i++)
+	{
+		cout << "Vector[" << i << "]= ";
+		cin >> a[i];
+	}
+}
+
+void mostrar(double a[], int tamano)
+{
+    for (int i = 0; i < tamano; i++)
+	{
+		cout<< a[i];
+		cout << endl;
+	}
+}
+
+double Promedio(double a[], int tamano)
+{
+    double suma=0;
+    double prom;
+    for(int i=0;i<tamano;i++)
+    suma=suma+a[i];
+    prom=suma/tamano;
+    return prom;
+}
