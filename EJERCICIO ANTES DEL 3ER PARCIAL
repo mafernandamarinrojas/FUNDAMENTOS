@@ -1,0 +1,102 @@
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+string productos[100];
+float precios[100];
+
+int nproductos = 0;
+
+// Función 1
+void registrarProducto();
+
+// Función 2
+float calcularPrecioTotal(); 
+
+// Función 3
+string encontrarProductoMasCaro();
+
+// Función 4
+void mostrarListaProductos();
+
+//programa principal...
+int main() {
+  int opcion;
+  nproductos = 0;
+
+  do {
+    // Mostramos el menú
+    cout << endl << "Menú" << endl;
+    cout << "1. Registrar Producto y Precio" << endl;
+    cout << "2. Calcular Precio Total" << endl;
+    cout << "3. Encontrar el Producto más Caro" << endl;
+    cout << "4. Mostrar Lista de Productos y Precios" << endl;
+    cout << "0. Salir" << endl;
+    cout << "Ingrese la opción deseada: ";
+    cin >> opcion;
+    switch (opcion) {
+      case 1:
+        registrarProducto();
+        break;
+      case 2:
+        cout << "El precio total de los productos es: " << calcularPrecioTotal() << endl;
+        break;
+      case 3:
+        cout << "El producto más caro es: " << encontrarProductoMasCaro() << endl;
+        break;
+      case 4:
+        mostrarListaProductos();
+        break;
+      case 0:
+        cout << "Saliendo del programa..." << endl;
+        break;
+      default:
+        cout << "Opción no válida" << endl;
+        break;
+    }
+  } while (opcion != 0);
+
+  return 0;
+}
+
+void registrarProducto() {
+  cout << "Ingrese el nombre del producto: ";
+  string nombreProducto;
+  cin.ignore();
+  getline(cin, nombreProducto);
+  cout << "Ingrese el precio del producto: ";
+  float precioProducto;
+  cin >> precioProducto;
+  
+  productos[nproductos] = nombreProducto;
+  precios[nproductos] = precioProducto;
+  nproductos++;
+}
+
+float calcularPrecioTotal() {
+  float precioTotal = 0;
+  for (int i = 0; i < nproductos; i++) {
+    precioTotal = precioTotal+precios[i];
+  }
+  return precioTotal;
+}
+string encontrarProductoMasCaro() {
+  string productoMasCaro;
+  float precioMasAlto = 0;
+  for (int i = 0; i < nproductos; i++) {
+    if (precios[i] > precioMasAlto) {
+      precioMasAlto = precios[i];
+      productoMasCaro = productos[i];
+    }
+  }
+  return productoMasCaro;
+}
+void mostrarListaProductos() {
+  
+  cout << endl << "Lista de productos y precios" << endl;
+  cout << "Nombre     |     Precio" << endl;
+  for (int i = 0; i < nproductos; i++) {
+    cout << productos[i] << " | " << precios[i] << endl;
+  }
+}
