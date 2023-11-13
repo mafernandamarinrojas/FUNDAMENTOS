@@ -1,0 +1,101 @@
+#include <iostream>
+
+using namespace std;
+
+// Estructura para representar un producto
+struct Producto {
+  string nombre;
+  int cantidad;
+  float precio;
+};
+
+// Función para registrar un producto
+void registrarProducto(Producto producto) {
+  cout << "Ingrese el nombre del producto: ";
+  cin >> producto.nombre;
+
+  cout << "Ingrese la cantidad del producto: ";
+  int cantidad;
+  cin >> cantidad;
+  while (cantidad <= 0) {
+    cout << "La cantidad debe ser mayor que 0. Ingrese nuevamente: ";
+    cin >> cantidad;
+  }
+
+  producto.cantidad = cantidad;
+
+  cout << "Ingrese el precio del producto: ";
+  cin >> producto.precio;
+}
+
+// Función para consultar la cantidad de un producto
+int consultarCantidadProducto(Producto producto) {
+  return producto.cantidad;
+}
+
+// Función para mostrar la información de un producto
+void mostrarProducto(Producto producto) {
+  cout << "Nombre: " << producto.nombre << endl;
+  cout << "Cantidad: " << producto.cantidad << endl;
+  cout << "Precio: " << producto.precio << endl;
+}
+
+// Función para calcular el precio total de los productos registrados
+float calcular_precio_total(Producto productos[], int n) {
+  // Declaramos una variable para almacenar el precio total
+  float precio_total = 0;
+
+  // Recorremos el arreglo de productos
+  for (int i = 0; i < n; i++) {
+    // Sumamos el precio del producto actual al precio total
+    precio_total += productos[i].cantidad * productos[i].precio;
+  }
+
+  // Devolvemos el precio total
+  return precio_total;
+}
+
+// Función principal
+int main() {
+  // Declaramos un arreglo de productos
+  Producto *productos = new Producto[1000];
+
+  // Inicializamos la variable cantidad
+  for (int i = 0; i < 1000; i++) {
+    productos[i].cantidad = 0;
+  }
+
+  // Creamos un switch para elegir la acción a realizar
+  int opcion;
+  do {
+    cout << "¿Qué desea hacer?" << endl;
+    cout << "1. Registrar un producto" << endl;
+    cout << "2. Mostrar el precio total" << endl;
+    cout << "3. Salir" << endl;
+    cin >> opcion;
+
+    switch (opcion) {
+      case 1:
+        // Registramos un producto
+        registrarProducto(*productos);
+        break;
+      case 2:
+        // Mostramos el precio total
+        float precio_total = calcular_precio_total(productos, 1000);
+        cout << "El precio total es: " << precio_total << endl;
+        break;
+      case 3:
+        // Salimos del programa
+        cout << "Saliendo del programa..." << endl;
+        break;
+      default:
+        cout << "Opción no válida" << endl;
+        break;
+    }
+  } while (opcion != 3);
+
+  // Liberamos la memoria asignada al arreglo de productos
+  delete[] productos;
+
+  return 0;
+}
