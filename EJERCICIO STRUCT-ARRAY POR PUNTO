@@ -1,0 +1,178 @@
+EJERCICIO STRUCT ARRAY
+#include <iostream>
+#include <string>
+#include "stdlib.h"
+#define MAX 6
+
+using namespace std;
+
+struct tintereses
+{
+    int numero;
+    string interes;
+    string descripcion;
+    int estado;
+};
+
+tintereses V[MAX];
+
+int insertar();
+void listar(int N);
+void consultar(int N);
+void modificar(int N);
+void borrar(int N);
+void clasificar();
+
+void main()
+{
+    int N, opc;
+    do {
+        cout << "\n MENU";
+        cout << "\n [1]----> Insertar";
+        cout << "\n [2]----> Listar";
+        cout << "\n [3]----> Consultar";
+        cout << "\n [4]----> Modificar";
+        cout << "\n [5]----> Borrar";
+        cout << "\n [6]----> Clasificar";
+        cout << "\n [0]----> Salir";
+        cout << "\n Ingrese la opcion: ";
+        cin >> opc;
+        switch (opc)
+        {
+        case 1:N = insertar();
+            break;
+        case 2:listar(N);
+            break;
+        case 3:consultar(N);
+            break;
+        case 4:modificar(N);
+            break;
+        case 5:borrar(N);
+            break;
+        case 6:clasificar();
+            break;
+        case 0:cout << "salir";
+            break;
+        default:cout << "error";
+            break;
+        }
+        system("cls");
+    } while (opc != 0);
+        system("pause");
+        system("notepad");
+}
+int insertar()
+{
+    int N;
+    cout << " Ingrese el numero de datos que desee insertar (de 0 hasta 6): ";
+    cin >> N; // 1. no debe ser mayor que MAX
+    for (int i = 0; i < N; i++)
+    {
+        cout << "Ingrese el ID: " << endl;
+        cin >> V[i].numero; //2. EL id no se debe repetir
+        cout << "Ingrese el interes: " << endl;
+        cin.ignore();
+        getline(cin, V[i].interes);
+        V[i].estado = 0;
+    }
+    return N;
+}
+void listar(int N)
+{
+    cout << "Listado" << endl;
+    cout << "ID" << "\t";
+    cout << "Interes" << "\t";
+    cout << "Descripcion" << "\t" << endl;
+    for (int i = 0; i < N; i++)
+    {
+        if (V[i].estado != 9)
+        {
+            cout << V[i].numero << "\t";
+            cout << V[i].interes << "\t";
+            cout << V[i].descripcion << endl;
+        }
+    }
+}
+void consultar(int N)
+{
+    int idElemento;
+    bool band = true;
+    cout << "Ingrese el elemento a consultar: ";
+    cin >> idElemento;
+    for (int i = 0; i < 0; i++) {
+        if (V[i].numero == idElemento) {
+            cout << "Interes: " << V[i].interes;
+            cout << "\tDescripcion: " << V[i].descripcion;
+            band = false;
+        }
+    }
+    if (band != false)
+        cout << "Elemento No Encontrado." << endl;
+}
+void modificar(int N)
+{
+    int idElemento;
+    bool band = true;
+    char resp;
+    cout << "Ingrese el elemento a modificar: ";
+    cin >> idElemento;
+    for (int i = 0; i < 0; i++) {
+        if (V[i].numero == idElemento) {
+            band = false;
+            cout << "Ingrese el interes: " << V[i].interes << endl;
+            cout << "Desea modificar el dato? (coloque s): ";
+            cin >> resp;
+            cin.ignore();
+            if (resp == 's')
+            {
+                cout << "Ingrese el nuevo dato: ";
+                getline(cin, V[i].interes);
+            }
+            cout << "Descripcion: " << V[i].descripcion << endl;
+            cout << "Desea modificar el dato? (coloque s): ";
+            cin >> resp;
+            cin.ignore();
+            if (resp == 's')
+            {
+                cout<< "Ingrese el nuevo dato: ";
+                getline(cin, V[i].descripcion);
+            }
+        }
+    }
+    if (band!=false)
+        cout << "Elemento No Encontrado." << endl;
+}
+void borrar(int N)
+{
+    // Borrar logico
+    int idElemento;
+    bool band = true;
+    cout << "Ingrese el elemento a Borrar: ";
+    cin >> idElemento;
+    for (int i = 0; i < N; i++) {
+        if (V[i].numero == idElemento) {
+            V[i].estado = 9; //Borrado logico
+            band = false;
+        }
+        
+    }
+    if (band != false)
+        cout << "Elemento No Encontrado." << endl;
+}
+void clasificar()
+{
+    // Ordenar los intereses alfabéticamente
+    for (int i = 0; i < N - 1; i++)
+    {
+        for (int j = i + 1; j < N; j++)
+        {
+            if (V[i].interes > V[j].interes)
+            {
+                // Intercambiar los intereses
+                tintereses aux = V[i];
+                V[i] = V[j];
+                V[j] = aux;
+            }
+        }
+    }
+}
