@@ -1,0 +1,78 @@
+#include <iostream>
+using namespace std;
+// Estructura para representar un producto
+struct Producto {
+  string nombre;
+  int cantidad;
+};
+
+// Función para registrar un producto
+void registrarProducto(Producto producto) {
+  cout << "Ingrese el nombre del producto: ";
+  cin >> producto.nombre;
+
+  cout << "Ingrese la cantidad del producto: ";
+  cin >> producto.cantidad;
+}
+
+// Función para consultar la cantidad de un producto
+int consultarCantidadProducto(Producto producto) {
+  return producto.cantidad;
+}
+
+// Función para mostrar la información de un producto
+void mostrarProducto(Producto producto) {
+  cout << "Nombre: " << producto.nombre << endl;
+  cout << "Cantidad: " << producto.cantidad << endl;
+}
+
+// Función principal
+int main() {
+  // Declaramos un arreglo de productos
+  Producto productos[10];
+
+  // Registramos algunos productos
+  for (int i = 0; i < 3; i++) {
+    // Copiamos los datos del producto a variables locales
+    string nombreProducto;
+    int cantidadProducto;
+
+    cout << "Ingrese el nombre del producto: ";
+    cin >> nombreProducto;
+
+    cout << "Ingrese la cantidad del producto: ";
+    cin >> cantidadProducto;
+
+    // Actualizamos los datos del producto en el arreglo
+    productos[i].nombre = nombreProducto;
+    productos[i].cantidad = cantidadProducto;
+  }
+
+  // Mostramos la información de los productos
+  for (int i = 0; i < 3; i++) {
+    // Mostramos los datos del producto del arreglo
+    cout << "Nombre: " << productos[i].nombre << endl;
+    cout << "Cantidad: " << productos[i].cantidad << endl;
+  }
+
+  // Consultamos la cantidad de un producto
+  // Copiamos los datos del producto del arreglo a una variable local
+  string nombreProducto;
+  cout << "Ingrese el nombre del producto: ";
+  cin >> nombreProducto;
+
+  // Buscamos el producto en el arreglo
+  for (int i = 0; i < 10; i++) {
+    if (productos[i].nombre == nombreProducto) {
+      // Obtenemos la cantidad del producto
+      int cantidadProducto = productos[i].cantidad;
+
+      // Mostramos la cantidad del producto
+      cout << "La cantidad del producto " << nombreProducto << " es: " << cantidadProducto << endl;
+      break;
+    }
+  }
+
+  return 0;
+}
+
