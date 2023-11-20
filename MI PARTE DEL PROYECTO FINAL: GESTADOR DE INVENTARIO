@@ -1,0 +1,101 @@
+//GRUPO 6: GESTADOR DE INVENTARIO
+#include <iostream>
+#define MAX 100
+
+using namespace std;
+
+// Estructura para usuario
+struct Usuario {
+  string nombre;
+  string cargo;
+  bool esAdministrador;
+};
+
+// Estructura para producto
+struct Producto {
+  string nombre;
+  int cantidad;
+};
+
+// Estructura para residuo
+struct Residuo {
+  string tipo;
+  int cantidad;
+  
+};
+
+// Función para registrar un usuario
+void registrarUsuario() ;
+// Función para registrar un producto
+void registrarProducto() ;
+// Función para registrar un residuo
+void registrarResiduo() ;
+
+// Función principal
+int main() {
+  int opcion;
+  do {
+    cout << endl<<"****** Menú principal ******" << endl;
+    cout << "1. Registrar usuario" << endl;
+    cout << "2. Registrar producto" << endl;
+    cout << "3. Registrar residuo" << endl;
+    cout << "4. Salir" << endl;
+    cout << "Ingrese una opción: ";
+    cin >> opcion;
+
+    switch (opcion) {
+      case 1:
+        // Registramos un usuario
+        registrarUsuario();
+        break;
+      case 2:
+        // Registramos un producto
+        registrarProducto();
+        break;
+      case 3:
+        // Registramos un residuo
+        registrarResiduo();
+        break;
+    }
+  } while (opcion != 0);
+
+  return 0;
+}
+
+//FUNCIONES
+void registrarUsuario() {
+  Usuario usuario;
+  // Pedimos los datos del usuario
+  cout << "Ingrese el nombre del usuario: ";
+  cin >> usuario.nombre;
+  cout << "Ingrese el cargo del usuario: ";
+  cin >> usuario.cargo;
+  cout << "¿Es administrador? (0 - No, 1 - Sí): ";
+  cin >> usuario.esAdministrador;
+
+  // Mostramos un mensaje de éxito
+  cout << "Usuario registrado correctamente" << endl;
+}
+
+void registrarProducto() {
+  Producto producto;
+  // Pedimos los datos del producto
+  cout << "Ingrese el nombre del producto: ";
+  cin.ignore();
+  getline(cin,producto.nombre) ;
+  cout << "Ingrese la cantidad del producto: ";
+  cin >> producto.cantidad;
+  // Mostramos un mensaje de éxito
+  cout << "Producto registrado correctamente" << endl;
+}
+void registrarResiduo() {
+  Residuo residuo;
+  // Pedimos los datos del residuo
+  cout << "Ingrese el tipo de residuo: ";
+  cin >> residuo.tipo;
+  cout << "Ingrese la cantidad del residuo (metros, centimetros, kilos, kilogramos: ";
+  cin >> residuo.cantidad;
+
+  // Mostramos un mensaje de éxito
+  cout << "Residuo registrado correctamente" << endl;
+}
