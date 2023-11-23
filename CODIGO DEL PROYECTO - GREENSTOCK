@@ -1,0 +1,375 @@
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <cstdlib>
+#include <iomanip>
+#include <chrono>
+#include <thread>
+
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
+using namespace std;
+
+// Prototipos de funciones
+class Cuentas {
+private:
+    static const int MAX_CUENTAS = 100;
+    string usuarios[MAX_CUENTAS];
+    string contrasenas[MAX_CUENTAS];
+    int numCuentas;
+
+public:
+    Cuentas() : numCuentas(0) {}
+
+    void registrarCuenta(string usuario, string contrasena);
+    bool verificarCuenta(string usuario, string contrasena);
+    void guardarCuentas();
+    void cargarCuentas();
+    int getNumCuentas() const;  // Agregado: declaración de la función
+    string getUsuario(int index) const;  // Agregado: declaración de la función
+};
+
+class Inventario {
+private:
+    static const int MAX_PRODUCTOS = 100;
+    string productos[MAX_PRODUCTOS];
+    int cantidades[MAX_PRODUCTOS];
+    int numProductos;
+
+public:
+    Inventario() : numProductos(0) {}
+
+    void registrarProducto(string producto, int cantidad);
+    void eliminarProducto(int indice);
+    int totalProductos();
+    void contabilizarProductos();
+    float precioTotal();
+    void guardarInventario();
+    void cargarInventario();
+};
+class Proveedores {
+private:
+    static const int MAX_PROVEEDORES = 50;
+    string nombres[MAX_PROVEEDORES];
+    string productos[MAX_PROVEEDORES];
+    float preciosCompra[MAX_PROVEEDORES];
+    int numProveedores;
+
+public:
+    Proveedores() : numProveedores(0) {}
+
+    void registrarProveedor(string nombre, string producto, float precioCompra);
+    void eliminarProveedor(int indice);
+    int totalProveedores();
+    void mostrarInfoProveedores();
+    float precioCompraProducto(string producto);
+    // ... (Otros métodos de la clase Proveedores)
+};
+
+// Implementación de funciones de la clase Proveedores
+void Proveedores::registrarProveedor(string nombre, string producto, float precioCompra) {
+    if (numProveedores < MAX_PROVEEDORES) {
+        nombres[numProveedores] = nombre;
+        productos[numProveedores] = producto;
+        preciosCompra[numProveedores] = precioCompra;
+        numProveedores++;
+    }
+}
+
+void Proveedores::eliminarProveedor(int indice) {
+    if (indice >= 0 && indice < numProveedores) {
+        for (int i = indice; i < numProveedores - 1; ++i) {
+            nombres[i] = nombres[i + 1];
+            productos[i] = productos[i + 1];
+            preciosCompra[i] = preciosCompra[i + 1];
+        }
+        numProveedores--;
+    }
+    else {
+        cout << "Índice de proveedor inválido." << endl;
+    }
+}
+
+int Proveedores::totalProveedores() {
+    return numProveedores;
+}
+
+void Proveedores::mostrarInfoProveedores() {
+    cout << "Total de proveedores: " << numProveedores << endl;
+    cout << "Detalles de proveedores:" << endl;
+    for (int i = 0; i < numProveedores; ++i) {
+        cout << "Proveedor: " << nombres[i] << ", Producto: " << productos[i] << ", Precio de compra: $" << preciosCompra[i] << endl;
+    }
+}
+
+float Proveedores::precioCompraProducto(string producto) {
+    for (int i = 0; i < numProveedores; ++i) {
+        if (productos[i] == producto) {
+            return preciosCompra[i];
+        }
+    }
+    return -1.0; // Producto no encontrado
+}
+
+// Implementación de funciones de la clase Cuentas
+void Cuentas::registrarCuenta(string usuario, string contrasena) {
+    if (numCuentas < MAX_CUENTAS) {
+        string confirmacionContrasena;
+
+        cout << "Ingrese contraseña: ";
+        cin >> contrasena;
+
+        cout << "Confirme la contraseña: ";
+        cin >> confirmacionContrasena;
+
+        if (contrasena == confirmacionContrasena) {
+            usuarios[numCuentas] = usuario;
+            contrasenas[numCuentas] = contrasena;
+            numCuentas++;
+            cout << "Registro exitoso." << endl;
+        }
+        else {
+            cout << "Las contraseñas no coinciden. Vuelva a intentarlo." << endl;
+        }
+    }
+}
+
+
+bool Cuentas::verificarCuenta(string usuario, string contrasena) {
+    for (int i = 0; i < numCuentas; ++i) {
+        if (usuarios[i] == usuario && contrasenas[i] == contrasena) {
+            return true;
+        }
+    }
+    return false;
+}
+
+void Cuentas::guardarCuentas() {
+    ofstream archivo("cuentas.txt");
+    if (archivo.is_open()) {
+        for (int i = 0; i < numCuentas; ++i) {
+            archivo << usuarios[i] << " " << contrasenas[i] << endl;
+        }
+        archivo.close();
+    }
+}
+
+void Cuentas::cargarCuentas() {
+    ifstream archivo("cuentas.txt");
+    if (archivo.is_open()) {
+        while (numCuentas < MAX_CUENTAS && archivo >> usuarios[numCuentas] >> contrasenas[numCuentas]) {
+            numCuentas++;
+        }
+        archivo.close();
+    }
+}
+
+int Cuentas::getNumCuentas() const {
+    return numCuentas;
+}
+
+string Cuentas::getUsuario(int index) const {
+    if (index >= 0 && index < numCuentas) {
+        return usuarios[index];
+    }
+    else {
+        // Manejar el índice fuera de rango, por ejemplo, lanzar una excepción o devolver un valor predeterminado
+        return ""; // Cambia esto según tu lógica
+    }
+}
+
+
+// Implementación de funciones de la clase Inventario
+void Inventario::registrarProducto(string producto, int cantidad) {
+    if (numProductos < MAX_PRODUCTOS) {
+        productos[numProductos] = producto;
+        cantidades[numProductos] = cantidad;
+        numProductos++;
+    }
+}
+
+void Inventario::eliminarProducto(int indice) {
+    if (indice >= 0 && indice < numProductos) {
+        for (int i = indice; i < numProductos - 1; ++i) {
+            productos[i] = productos[i + 1];
+            cantidades[i] = cantidades[i + 1];
+        }
+        numProductos--;
+    }
+    else {
+        cout << "Indice de producto invalido." << endl;
+    }
+}
+
+int Inventario::totalProductos() {
+    return numProductos;
+}
+
+void Inventario::contabilizarProductos() {
+    cout << "Total de productos: " << numProductos << endl;
+    cout << "Detalles de productos:" << endl;
+    for (int i = 0; i < numProductos; ++i) {
+        cout << productos[i] << ": " << cantidades[i] << endl;
+    }
+}
+
+float Inventario::precioTotal() {
+    float precioPorUnidad = 10.0; // Precio fijo de $10 por unidad para todos los productos
+    float saldoTotal = 0.0;
+    for (int i = 0; i < numProductos; ++i) {
+        saldoTotal += cantidades[i] * precioPorUnidad;
+    }
+    return saldoTotal;
+}
+
+void Inventario::guardarInventario() {
+    ofstream archivo("inventario.txt");
+    if (archivo.is_open()) {
+        for (int i = 0; i < numProductos; ++i) {
+            archivo << productos[i] << " " << cantidades[i] << endl;
+        }
+        archivo.close();
+    }
+}
+
+void Inventario::cargarInventario() {
+    ifstream archivo("inventario.txt");
+    if (archivo.is_open()) {
+        while (numProductos < MAX_PRODUCTOS && archivo >> productos[numProductos] >> cantidades[numProductos]) {
+            numProductos++;
+        }
+        archivo.close();
+    }
+}
+void mostrarImagenWindows(const string& rutaImagen) {
+#ifdef _WIN32
+    // Convertir la ruta de la imagen a formato LPCWSTR para usarla con la función SystemParametersInfo
+    wstring rutaImagenW(rutaImagen.begin(), rutaImagen.end());
+    LPCWSTR rutaImagenLPCWSTR = rutaImagenW.c_str();
+
+    // Establecer la imagen de fondo utilizando SystemParametersInfo
+    SystemParametersInfo(SPI_SETDESKWALLPAPER, 0, (PVOID)rutaImagenLPCWSTR, SPIF_UPDATEINIFILE);
+#endif
+}
+
+// Función principal;
+int main() {
+    mostrarImagenWindows("ruta_de_la_imagen.bmp");
+    Cuentas cuentas;
+    cuentas.cargarCuentas();
+
+    string usuario, contrasena;
+    cout << "Bienvenido al sistema. Por favor, inicia sesión o regístrate." << endl;
+
+    int opcion;
+    do {
+        cout << "1. Iniciar sesión\t\t";
+        cout << "2. Registrarse" << endl;
+        cout << "0. Salir de la aplicación" << endl;
+        cout << "Elige una opción: ";
+        cin >> opcion;
+
+        switch (opcion) {
+        case 1:
+            cout << "Ingrese usuario: ";
+            cin >> usuario;
+            cout << "Ingrese contraseña: ";
+            cin >> contrasena;
+
+            if (cuentas.verificarCuenta(usuario, contrasena)) {
+                cout << "Inicio de sesión exitoso." << endl;
+
+                // Menú principal después de iniciar sesión
+                int opcionMenu;
+                do {
+                    cout << "\n=== Menú Principal ===" << endl;
+                    cout << "1. Ir al menú de inventario" << endl;
+                    cout << "2. Ir al menú de proveedores" << endl;
+                    cout << "0. Salir de la aplicación" << endl;
+                    cout << "Elige una opción: ";
+                    cin >> opcionMenu;
+
+                    switch (opcionMenu) {
+                    case 1: {
+                        // Menú de Inventario
+                        Inventario inventario;
+                        inventario.cargarInventario();
+
+                        int opcionInventario;
+                        do {
+                            cout << "\n=== Menú de Inventario ===" << endl;
+                            cout << "1. Registrar producto" << endl;
+                            cout << "2. Eliminar producto" << endl;
+                            cout << "3. Total de productos" << endl;
+                            cout << "4. Detalles de productos" << endl;
+                            cout << "5. Precio de cada producto y saldo total" << endl;
+                            cout << "6. Volver al menú principal" << endl;
+                            cout << "Elige una opción: ";
+                            cin >> opcionInventario;
+
+                            // ... (Código para manejar las opciones del inventario)
+
+                        } while (opcionInventario != 6);
+                        break;
+                    }
+
+                    case 2: {
+                        // Menú de Proveedores
+                        Proveedores proveedores;
+
+                        // ... (Registro de proveedores de ejemplo)
+
+                        int opcionProveedores;
+                        do {
+                            cout << "\n=== Menú de Proveedores ===" << endl;
+                            cout << "1. Registrar proveedor" << endl;
+                            cout << "2. Eliminar proveedor" << endl;
+                            cout << "3. Total de proveedores" << endl;
+                            cout << "4. Detalles de proveedores" << endl;
+                            cout << "5. Precio de compra de un producto" << endl;
+                            cout << "6. Volver al menú principal" << endl;
+                            cout << "Elige una opción: ";
+                            cin >> opcionProveedores;
+
+                            // ... (Código para manejar las opciones de proveedores)
+
+                        } while (opcionProveedores != 6);
+                        break;
+                    }
+                    case 0:
+                        cout << "Saliendo de la aplicación." << endl;
+                        break;
+                    default:
+                        cout << "Opción no válida." << endl;
+                        break;
+                    }
+                } while (opcionMenu != 0);
+            }
+            else {
+                cout << "Inicio de sesión fallido. Usuario o contraseña incorrectos." << endl;
+            }
+            break;
+        case 2: {
+            string nuevoUsuario, nuevaContrasena;
+            cout << "Ingrese nuevo usuario: ";
+            cin >> nuevoUsuario;
+
+            cuentas.registrarCuenta(nuevoUsuario, nuevaContrasena); // Se eliminó la línea donde se pide la contraseña aquí
+            cuentas.guardarCuentas();
+            cout << "Cuenta creada con éxito. Por favor, inicia sesión." << endl;
+            break;
+        }
+
+        case 0:
+            cout << "Saliendo de la aplicación." << endl;
+            break;
+        default:
+            cout << "Opción no válida." << endl;
+            break;
+        }
+    } while (opcion != 0);
+
+    return 0;
+}
