@@ -1,0 +1,278 @@
+/******************************************************************************
+
+                 PROGRAMA PARA CONTROL DE INVENTARIO EFICIENTE
+                 -----     G  R  E  E  N  S  T  O  C  K -----
+                 
+*******************************************************************************/
+
+#include <iostream>
+#include <string>
+#include <iomanip>
+
+using namespace std;
+
+// Clase Cliente
+class Cliente {
+public:
+    string nombres;
+    string apellidos;
+    string contrasena;
+
+    void ingresarInformacion() {
+        cout << endl << "************************************************ PROGRAMA PARA CONTROL CONTINUO DE INVENTARIO ************************************************" << endl;
+        cout << " ----- C  L  I  E  N  T  E -----" << endl;
+        cout << endl << " NOMBRES: ";
+        cin.ignore();
+        getline(cin, nombres);
+        cout << " APELLIDOS: ";
+        getline(cin, apellidos);
+        cout << " CONTRASEÑA: ";
+        cin >> contrasena;
+        cout << endl << "********************************************************************************************************************************************" << endl;
+    }
+};
+
+// Clase Empresa
+class Empresa {
+public:
+    string nombre;
+    int tipo;
+
+    void ingresarInformacion() {
+        cout << " ----- E  M  P  R  E  S  A -----" << endl;
+        cout << " Nombre de la empresa: ";
+        cin.ignore();
+        getline(cin, nombre);
+        cout << "Seleccione el tipo de empresa: " << endl;
+        cout << " 1. Unipersonal" << endl;
+        cout << " 2. PYME" << endl;
+        cout << " Respuesta: ";
+        cin >> tipo;
+        cout << endl << "********************************************************************************************************************************************" << endl;
+    }
+};
+
+// Clase Producto
+class Producto {
+public:
+    float codigo;
+    string nombre;
+    int cantidad;
+    double precio;
+
+    void ingresarInformacion() {
+        cout << " ----- P  R  O  D  U  C  T  O -----" << endl;
+        cout << " Código producto: ";
+        cin >> codigo;
+        cout << " Nombre del producto: ";
+        cin.ignore();
+        getline(cin, nombre);
+        cout << " Cantidad (unid.): ";
+        cin >> cantidad;
+        cout << " Precio (Bs.): ";
+        cin >> precio;
+        cout << endl << "********************************************************************************************************************************************" << endl;
+    }
+};
+
+// Clase AnalisisFinanciero
+class AnalisisFinanciero {
+public:
+    void PuntoEquilibrio(const Producto &producto) {
+        double CostoFijo, CostoVariable, CostoVariableUnitario;
+        int PuntoEquilibrio;
+
+        cout << " ---------- ANÁLISIS FINANCIERO ---------- " << endl;
+        cout << "       (Expresado en bolivianos (Bs.)\n";
+        cout << " -----------------------------------------" << endl;
+        cout << "****************************************" << endl;
+        cout << " ---------- DATOS DEL PRODUCTO ---------" << endl;
+        cout << " Código: " << producto.codigo << "\n";
+        cout << " Nombre: " << producto.nombre << "\n";
+        cout << " Cantidad (unid.): " << producto.cantidad << "\n";
+        cout << " Precio (Bs.): " << producto.precio << "\n";
+        cout << "****************************************" << endl;
+
+        cout << " Ingrese el costo fijo del producto: ";
+        cin >> CostoFijo;
+        cout << " Ingrese el costo variable del producto: ";
+        cin >> CostoVariable;
+        if (producto.cantidad != 0) {
+            CostoVariableUnitario = CostoVariable / producto.cantidad;
+            // Cálculo del punto de equilibrio
+            PuntoEquilibrio = CostoFijo / (producto.precio - CostoVariableUnitario);
+            cout << endl << " ----- PEQ (cantidades) -----" << endl;
+            cout << " PUNTO DE EQUILIBRIO = " << PuntoEquilibrio << " unidades.\n";
+            cout << " *INTERPRETACIÓN: Lo anterior significa que para el producto analizado con código: " << producto.codigo << " usted debe producir y vender aproximadamente " << PuntoEquilibrio << " unidades de producto." << endl;
+        } else {
+            cout << " No es posible calcular el punto de equilibrio. La cantidad del producto es 0." << endl;
+        }
+    }
+
+    void InformacionFinanciera(const Producto &producto) {
+        double IngresosTotales, CostosTotales, Utilidad, MargenUtilidad, RotacionInventarios;
+        int PPInventario;
+
+        cout << "****************************************" << endl;
+        cout << " ---------- DATOS DEL PRODUCTO ---------" << endl;
+        cout << " Código: " << producto.codigo << endl;
+        cout << " Nombre: " << producto.nombre << endl;
+        cout << " Cantidad (unid.): " << producto.cantidad << endl;
+        cout << " Precio (Bs.): " << producto.precio << endl;
+        cout << "****************************************" << endl;
+
+        IngresosTotales = producto.precio * producto.cantidad;
+        cout << " Ingresos Totales (Bs.)= " << IngresosTotales << endl;
+        cout << " Ingrese Costos Totales (Bs.) = ";
+        cin >> CostosTotales;
+        cout << endl << " ---------- GANANCIAS ----------" << endl;
+        Utilidad = IngresosTotales - CostosTotales;
+        cout << " UTILIDAD DEL PRODUCTO = " << Utilidad << " Bs." << endl;
+
+        if (IngresosTotales != 0) {
+            MargenUtilidad = (Utilidad / IngresosTotales) * 100;
+            cout << " MARGEN DE UTILIDAD = " << MargenUtilidad << "%" << endl;
+            cout << endl << " ---------- INDICADORES ----------" << endl;
+            RotacionInventarios = CostosTotales / producto.cantidad;
+            cout << "Rotación de Inventarios (RI) = " << RotacionInventarios;
+            cout << " *INTERPRETACIÓN: Lo anterior significa que el inventario del producto analizado con código: " << producto.codigo << " rota " << RotacionInventarios << " veces en un año." << endl;
+            PPInventario = RotacionInventarios / producto.cantidad;
+            cout << "Período Promedio de Inventario (PPI) = " << PPInventario;
+            cout << " *INTERPRETACIÓN: Lo anterior significa que para el producto analizado con código: " << producto.codigo << " pasan aproximadamente " << PPInventario << " días en un año, hasta que se realiza la venta." << endl;
+            cout << " *NOTA: Estos indicadores son importantes para su empresa porque le permite evaluar su desempeño en términos de rentabilidad y eficiencia, para tomar las mejores decisiones respecto a la producción." << endl;
+        } else {
+            cout << " No es posible calcular los indicadores. Los ingresos totales son 0." << endl;
+        }
+    }
+};
+
+// Clase Inventario
+class Inventario {
+public:
+    static const int limite = 1000;
+    Producto productos[limite];
+    int cantidadProductos = 0;
+
+    void cargarProducto() {
+        if (cantidadProductos < limite) {
+            Producto nuevoProducto;
+            nuevoProducto.ingresarInformacion();
+            productos[cantidadProductos] = nuevoProducto;
+            cantidadProductos++;
+            cout << "Producto cargado exitosamente.\n";
+        } else {
+            cout << "No es posible cargar más productos. Límite alcanzado.\n";
+        }
+    }
+
+    void eliminarProducto() {
+        int codigo;
+        cout << "Ingrese el código del producto a eliminar: ";
+        cin >> codigo;
+
+        for (int i = 0; i < cantidadProductos; ++i) {
+            if (productos[i].codigo == codigo) {
+                for (int j = i; j < cantidadProductos - 1; ++j) {
+                    productos[j] = productos[j + 1];
+                }
+                cantidadProductos--;
+                cout << "Producto eliminado exitosamente.\n";
+                return;
+            }
+        }
+
+        cout << "No se encontró el producto con el código ingresado.\n";
+    }
+
+    void modificarProducto() {
+        int codigo;
+        cout << "Ingrese el código del producto a modificar: ";
+        cin >> codigo;
+
+        for (int i = 0; i < cantidadProductos; ++i) {
+            if (productos[i].codigo == codigo) {
+                productos[i].ingresarInformacion();
+                cout << "Producto modificado exitosamente.\n";
+                return;
+            }
+        }
+
+        cout << "No se encontró el producto con el código ingresado.\n";
+    }
+
+    void mostrarInventario() {
+        cout << "-------------------------- INVENTARIO ---------------------------" << endl;
+        cout << setw(10) << "Código" << setw(20) << "Nombre" << setw(10) << "Cantidad" << setw(10) << "Precio" << setw(15) << "Importe (Bs.)" << endl;
+        cout << setfill('-') << setw(65) << "-" << setfill(' ') << endl;
+        for (int i = 0; i < cantidadProductos; ++i) {
+            cout << setw(10) << productos[i].codigo << setw(20) << productos[i].nombre << setw(10) << productos[i].cantidad << setw(15) << productos[i].precio << setw(10) << productos[i].precio * productos[i].cantidad << endl;
+        }
+    }
+
+    void calculofinanciero() {
+        AnalisisFinanciero analisisFinanciero;
+        int codigo;
+        cout << "Ingrese el código del producto a analizar: ";
+        cin >> codigo;
+
+        for (int i = 0; i < cantidadProductos; ++i) {
+            if (productos[i].codigo == codigo) {
+                analisisFinanciero.PuntoEquilibrio(productos[i]);
+                analisisFinanciero.InformacionFinanciera(productos[i]);
+                return;
+            }
+        }
+
+        cout << "No se encontró el producto con el código ingresado.\n";
+    }
+};
+
+// Programa principal
+int main() {
+    Cliente cliente;
+    Empresa empresa;
+    Inventario inventario;
+
+    cliente.ingresarInformacion();
+    empresa.ingresarInformacion();
+
+    int opcion;
+    do {
+        cout << "\n************************************************** MENÚ PRINCIPAL INVENTARIO DE PRODUCTOS **************************************************" << endl;
+        cout << "1. Cargar producto" << endl;
+        cout << "2. Eliminar producto" << endl;
+        cout << "3. Modificar producto" << endl;
+        cout << "4. Mostrar Inventario Total" << endl;
+        cout << "5. Análisis Financiero del Inventario (Punto de Equilibrio e Informacion Financiera)" << endl;
+        cout << "0. Salir" << endl;
+        cout << "Ingrese su opción: ";
+        cin >> opcion;
+        cout << endl << "********************************************************************************************************************************************" << endl;
+
+        switch (opcion) {
+            case 1:
+                inventario.cargarProducto();
+                break;
+            case 2:
+                inventario.eliminarProducto();
+                break;
+            case 3:
+                inventario.modificarProducto();
+                break;
+            case 4:
+                inventario.mostrarInventario();
+                break;
+            case 5:
+                inventario.calculofinanciero();
+                break;
+            case 0:
+                cout << "Saliendo del programa." << endl;
+                break;
+            default:
+                cout << "Opción inválida. Inténtelo de nuevo." << endl;
+        }
+
+    } while (opcion != 0);
+
+    return 0;
+}
