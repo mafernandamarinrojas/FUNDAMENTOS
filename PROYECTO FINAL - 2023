@@ -21,7 +21,7 @@ public:
     void ingresarInformacion() {
         cout << endl << "************************************************ PROGRAMA PARA CONTROL CONTINUO DE INVENTARIO ************************************************" << endl;
         cout << " ----- C  L  I  E  N  T  E -----" << endl;
-        cout << endl << " NOMBRES: ";
+        cout << " NOMBRES: ";
         cin.ignore();
         getline(cin, nombres);
         cout << " APELLIDOS: ";
@@ -74,6 +74,70 @@ public:
         cout << endl << "********************************************************************************************************************************************" << endl;
     }
 };
+
+// Clase Inventario
+class Inventario {
+public:
+    static const int limite = 1000;
+    Producto productos[limite];
+    int cantidadProductos = 0;
+
+    void cargarProducto() {
+        if (cantidadProductos < limite) {
+            Producto nuevoProducto;
+            nuevoProducto.ingresarInformacion();
+            productos[cantidadProductos] = nuevoProducto;
+            cantidadProductos++;
+            cout << "Producto cargado exitosamente.\n";
+        } else {
+            cout << "No es posible cargar más productos. Límite alcanzado.\n";
+        }
+    }
+
+    void eliminarProducto() {
+        int codigo;
+        cout << "Ingrese el código del producto a eliminar: ";
+        cin >> codigo;
+
+        for (int i = 0; i < cantidadProductos; ++i) {
+            if (productos[i].codigo == codigo) {
+                for (int j = i; j < cantidadProductos - 1; ++j) {
+                    productos[j] = productos[j + 1];
+                }
+                cantidadProductos--;
+                cout << "Producto eliminado exitosamente.\n";
+                return;
+            }
+        }
+
+        cout << "No se encontró el producto con el código ingresado.\n";
+    }
+
+    void modificarProducto() {
+        int codigo;
+        cout << "Ingrese el código del producto a modificar: ";
+        cin >> codigo;
+
+        for (int i = 0; i < cantidadProductos; ++i) {
+            if (productos[i].codigo == codigo) {
+                productos[i].ingresarInformacion();
+                cout << "Producto modificado exitosamente.\n";
+                return;
+            }
+        }
+
+        cout << "No se encontró el producto con el código ingresado.\n";
+    }
+
+    void mostrarInventario() {
+        cout << "-------------------------- INVENTARIO ---------------------------" << endl;
+        cout << setw(10) << "Código" << setw(20) << "Nombre" << setw(10) << "Cantidad" << setw(10) << "Precio" << setw(15) << "Importe (Bs.)" << endl;
+        cout << setfill('-') << setw(65) << "-" << setfill(' ') << endl;
+        for (int i = 0; i < cantidadProductos; ++i) {
+            cout << setw(10) << productos[i].codigo << setw(20) << productos[i].nombre << setw(10) << productos[i].cantidad << setw(15) << productos[i].precio << setw(10) << productos[i].precio * productos[i].cantidad << endl;
+        }
+    }
+
 
 // Clase AnalisisFinanciero
 class AnalisisFinanciero {
@@ -145,69 +209,6 @@ public:
         }
     }
 };
-
-// Clase Inventario
-class Inventario {
-public:
-    static const int limite = 1000;
-    Producto productos[limite];
-    int cantidadProductos = 0;
-
-    void cargarProducto() {
-        if (cantidadProductos < limite) {
-            Producto nuevoProducto;
-            nuevoProducto.ingresarInformacion();
-            productos[cantidadProductos] = nuevoProducto;
-            cantidadProductos++;
-            cout << "Producto cargado exitosamente.\n";
-        } else {
-            cout << "No es posible cargar más productos. Límite alcanzado.\n";
-        }
-    }
-
-    void eliminarProducto() {
-        int codigo;
-        cout << "Ingrese el código del producto a eliminar: ";
-        cin >> codigo;
-
-        for (int i = 0; i < cantidadProductos; ++i) {
-            if (productos[i].codigo == codigo) {
-                for (int j = i; j < cantidadProductos - 1; ++j) {
-                    productos[j] = productos[j + 1];
-                }
-                cantidadProductos--;
-                cout << "Producto eliminado exitosamente.\n";
-                return;
-            }
-        }
-
-        cout << "No se encontró el producto con el código ingresado.\n";
-    }
-
-    void modificarProducto() {
-        int codigo;
-        cout << "Ingrese el código del producto a modificar: ";
-        cin >> codigo;
-
-        for (int i = 0; i < cantidadProductos; ++i) {
-            if (productos[i].codigo == codigo) {
-                productos[i].ingresarInformacion();
-                cout << "Producto modificado exitosamente.\n";
-                return;
-            }
-        }
-
-        cout << "No se encontró el producto con el código ingresado.\n";
-    }
-
-    void mostrarInventario() {
-        cout << "-------------------------- INVENTARIO ---------------------------" << endl;
-        cout << setw(10) << "Código" << setw(20) << "Nombre" << setw(10) << "Cantidad" << setw(10) << "Precio" << setw(15) << "Importe (Bs.)" << endl;
-        cout << setfill('-') << setw(65) << "-" << setfill(' ') << endl;
-        for (int i = 0; i < cantidadProductos; ++i) {
-            cout << setw(10) << productos[i].codigo << setw(20) << productos[i].nombre << setw(10) << productos[i].cantidad << setw(15) << productos[i].precio << setw(10) << productos[i].precio * productos[i].cantidad << endl;
-        }
-    }
 
     void calculofinanciero() {
         AnalisisFinanciero analisisFinanciero;
