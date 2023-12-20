@@ -18,7 +18,7 @@ public:
     string apellidos;
     string contrasena;
 
-    void ingresarInformacion() {
+    void ingresarInformacionCliente() {
         cout << endl << "************************************************ PROGRAMA PARA CONTROL CONTINUO DE INVENTARIO ************************************************" << endl;
         cout << " ----- C  L  I  E  N  T  E -----" << endl;
         cout << " NOMBRES: ";
@@ -38,7 +38,7 @@ public:
     string nombre;
     int tipo;
 
-    void ingresarInformacion() {
+    void ingresarInformacionEmpresa() {
         cout << " ----- E  M  P  R  E  S  A -----" << endl;
         cout << " Nombre de la empresa: ";
         cin.ignore();
@@ -60,7 +60,7 @@ public:
     int cantidad;
     double precio;
 
-    void ingresarInformacion() {
+    void ingresarInformacionProducto() {
         cout << " ----- P  R  O  D  U  C  T  O -----" << endl;
         cout << " Código producto: ";
         cin >> codigo;
@@ -85,7 +85,7 @@ public:
     void cargarProducto() {
         if (cantidadProductos < limite) {
             Producto nuevoProducto;
-            nuevoProducto.ingresarInformacion();
+            nuevoProducto.ingresarInformacionProducto();
             productos[cantidadProductos] = nuevoProducto;
             cantidadProductos++;
             cout << "Producto cargado exitosamente.\n";
@@ -120,7 +120,7 @@ public:
 
         for (int i = 0; i < cantidadProductos; ++i) {
             if (productos[i].codigo == codigo) {
-                productos[i].ingresarInformacion();
+                productos[i].ingresarInformacionProducto();
                 cout << "Producto modificado exitosamente.\n";
                 return;
             }
@@ -234,8 +234,8 @@ int main() {
     Empresa empresa;
     Inventario inventario;
 
-    cliente.ingresarInformacion();
-    empresa.ingresarInformacion();
+    cliente.ingresarInformacionCliente();
+    empresa.ingresarInformacionEmpresa();
 
     int opcion;
     do {
